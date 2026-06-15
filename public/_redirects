@@ -1,0 +1,3 @@
+# Netlify Redirect Rules for SPA Routing and API fallback
+/api/subtitles   /api/subtitles   200
+/*               /index.html      200

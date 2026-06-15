@@ -1,0 +1,271 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+/* Custom visual animations & transitions for premium cinematic feeling */
+.backdrop-blur-md {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.backdrop-blur-xl {
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+}
+
+/* Disable default focus outline styles for clean canvas gaming feeling */
+*:focus {
+  outline: none;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #020617;
+  font-family: var(--font-sans);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 6px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.35s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+}
+
+/* --- GREAT-APE-33 INSTAGRAM BUTTON STYLE (By vinodjangid07) --- */
+.wilo-instagram-btn {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: transparent;
+  position: relative;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.wilo-instagram-svg-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  z-index: 2;
+  color: #f1f5f9;
+}
+
+.wilo-instagram-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  z-index: 1;
+  border-radius: 16px;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  opacity: 0;
+  box-shadow: 0 6px 20px rgba(220, 39, 67, 0.45);
+}
+
+.wilo-instagram-btn:hover {
+  transform: translateY(-3px);
+}
+
+.wilo-instagram-btn:hover .wilo-instagram-svg-container {
+  background-color: transparent;
+  border: 1px solid transparent;
+}
+
+.wilo-instagram-btn:hover .wilo-instagram-bg {
+  opacity: 1;
+}
+
+/* --- CREATIVE COSMIC STORY WEBSITE BUTTON (WILO BLUE BRANDED) --- */
+.wilo-story-website-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 16px;
+  overflow: visible;
+  transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  padding: 1px; /* gradient border trick */
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.4) 0%, rgba(124, 58, 237, 0.4) 100%);
+  box-shadow: 0 8px 32px rgba(6, 182, 212, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .wilo-story-website-btn {
+    width: auto;
+  }
+}
+
+.wilo-story-btn-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px 20px;
+  background-color: rgba(9, 15, 30, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 15px;
+  width: 100%;
+  height: 100%;
+  transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  z-index: 2;
+}
+
+@media (min-width: 640px) {
+  .wilo-story-btn-content {
+    padding: 15px 28px;
+  }
+}
+
+.wilo-story-btn-text {
+  color: #f8fafc;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.wilo-story-glow-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #06b6d4 0%, #7c3aed 50%, #ec4899 100%);
+  opacity: 0.15;
+  filter: blur(15px);
+  z-index: 1;
+  transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  animation: wilo-cosmic-spin 6s linear infinite;
+}
+
+@keyframes wilo-cosmic-spin {
+  0% {
+    filter: blur(14px) hue-rotate(0deg);
+  }
+  50% {
+    filter: blur(18px) hue-rotate(180deg);
+  }
+  100% {
+    filter: blur(14px) hue-rotate(360deg);
+  }
+}
+
+/* Hover States with Advanced Physics Motion */
+.wilo-story-website-btn:hover {
+  transform: translateY(-4px) scale(1.02);
+  background: linear-gradient(135deg, #06b6d4 0%, #7c3aed 100%);
+  box-shadow: 0 15px 40px rgba(6, 182, 212, 0.4), 0 0 25px rgba(124, 58, 237, 0.25);
+}
+
+.wilo-story-website-btn:hover .wilo-story-btn-content {
+  background-color: rgba(9, 15, 30, 0.45);
+}
+
+.wilo-story-website-btn:hover .wilo-story-btn-text {
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.28em;
+}
+
+.wilo-story-website-btn:hover .wilo-story-glow-layer {
+  opacity: 0.85;
+  filter: blur(22px);
+  transform: scale(1.08);
+}
+
+.wilo-story-website-btn:active {
+  transform: translateY(-1px) scale(0.98);
+  box-shadow: 0 5px 15px rgba(6, 182, 212, 0.3);
+}
+
+/* --- DEEP OCEAN IDLE SWELLS & BOBBING RHYTHMS --- */
+@keyframes oceanSwellBob {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-ocean-bob {
+  animation: oceanSwellBob 7s ease-in-out infinite;
+}
+
+@keyframes oceanSwellBobSlow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+.animate-ocean-bob-slow {
+  animation: oceanSwellBobSlow 10s ease-in-out infinite;
+}
+
+@keyframes oceanSwellBobExtraSlow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.animate-ocean-bob-extra-slow {
+  animation: oceanSwellBobExtraSlow 14s ease-in-out infinite;
+}
+
+@keyframes oceanSubtleSway {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-4px, -6px);
+  }
+}
+
+.animate-ocean-sway {
+  animation: oceanSubtleSway 11s ease-in-out infinite;
+}
+
+

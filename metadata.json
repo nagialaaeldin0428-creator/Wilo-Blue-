@@ -1,0 +1,6 @@
+{
+  "name": "Wilo Blue",
+  "description": "A cinematic Three.js ocean intro page for Wilo Blue with dynamic day/night states, interactive weather systems, and immersive audio animations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

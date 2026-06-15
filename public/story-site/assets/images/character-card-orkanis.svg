@@ -1,0 +1,74 @@
+<svg viewBox="0 0 400 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#05030d" />
+      <stop offset="50%" stop-color="#140b24" />
+      <stop offset="100%" stop-color="#020105" />
+    </linearGradient>
+    <radialGradient id="ringGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ff4411" stop-opacity="0.22" />
+      <stop offset="100%" stop-color="#770022" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="orkBody" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#40324f" />
+      <stop offset="45%" stop-color="#1d142b" />
+      <stop offset="100%" stop-color="#05010f" />
+    </linearGradient>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background Card Canvas -->
+  <rect width="400" height="600" rx="20" fill="url(#bgGrad)" stroke="#3e1b4f" stroke-width="4" />
+  <rect x="12" y="12" width="376" height="576" rx="14" fill="none" stroke="#602e7a" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.6" />
+
+  <!-- Radiating Deep Red/Violet Energy Rings -->
+  <ellipse cx="200" cy="300" rx="180" ry="180" fill="url(#ringGlow)" />
+  <circle cx="200" cy="300" r="135" fill="none" stroke="#dc2626" stroke-width="1" stroke-dasharray="8,8" opacity="0.15" />
+
+  <!-- Bioluminescent Moody Red Sparkles -->
+  <circle cx="310" cy="150" r="5" fill="#f43f5e" filter="url(#softGlow)" opacity="0.8" />
+  <circle cx="80" cy="460" r="6" fill="#f43f5e" filter="url(#softGlow)" opacity="0.7" />
+  <circle cx="280" cy="480" r="3" fill="#ea580c" filter="url(#softGlow)" opacity="0.6" />
+
+  <!-- ORKANIS THE SHADOW LEVIATHAN ARTWORK -->
+  <g transform="translate(10, 15)">
+    <!-- Back Giant leviathan Tail Fin -->
+    <path d="M70 240 C35 180 12 170 8 200 C15 210 28 225 45 250 C20 270 5 290 2 310 C15 315 35 300 70 270 Z" fill="#0c051a" stroke="#ef4444" stroke-width="1" opacity="0.6"/>
+
+    <!-- Massive Shadow Leviathan Body (Deep, mysterious and broad) -->
+    <path d="M50 255 C60 145 130 95 260 115 C330 135 365 200 350 270 C335 340 260 380 170 370 C80 365 40 330 50 255 Z" fill="url(#orkBody)" stroke="#9c27b0" stroke-opacity="0.32" stroke-width="2.5" />
+
+    <!-- Belly plates -->
+    <path d="M85 305 C140 365 260 385 310 320 C270 370 170 380 80 335 Z" fill="#04020a" opacity="0.8" />
+
+    <!-- GLOWING BATTLE SCARS (Crackled neon lines representing the ancient ocean's hidden wound) -->
+    <path d="M120 180 L140 205 L130 230 L160 255 L150 290 L180 320" fill="none" stroke="#ef4444" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#softGlow)" />
+    <path d="M120 180 L140 205 L130 230 L160 255 L150 290 L180 320" fill="none" stroke="#fddf20" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    
+    <!-- Secondary smaller scar lines -->
+    <path d="M180 210 L195 230 L190 245 L205 260" fill="none" stroke="#ef4444" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" filter="url(#softGlow)" opacity="0.8" />
+    <path d="M180 210 L195 230 L190 245 L205 260" fill="none" stroke="#ff8c00" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.9" />
+
+    <path d="M220 175 L230 190 L225 210" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#softGlow)" opacity="0.7" />
+
+    <!-- Powerful Deep-set Emotional Glowing Red Eye -->
+    <ellipse cx="280" cy="225" rx="15" ry="11" fill="#020005" />
+    <circle cx="282" cy="225" r="8" fill="#ef4444" filter="url(#softGlow)" />
+    <circle cx="282" cy="225" r="4" fill="#ffea75" />
+    <circle cx="277" cy="219" r="2" fill="#ffffff" />
+
+    <!-- Deep sea current lines sliding past -->
+    <path d="M30 140 Q150 100 280 120" fill="none" stroke="#9333ea" stroke-width="1.5" opacity="0.2"/>
+    <path d="M40 395 Q180 370 330 395" fill="none" stroke="#9333ea" stroke-width="1.5" opacity="0.2"/>
+  </g>
+
+  <!-- Glowing Title Card Accent -->
+  <text x="200" y="540" font-family="'Space Grotesk', system-ui, sans-serif" font-weight="bold" font-size="28" fill="#f43f5e" text-anchor="middle" filter="url(#softGlow)">ORKANIS</text>
+  <text x="200" y="565" font-family="'JetBrains Mono', monospace" font-size="12" fill="#d8b4fe" text-anchor="middle" letter-spacing="3">THE SHADOW</text>
+</svg>
