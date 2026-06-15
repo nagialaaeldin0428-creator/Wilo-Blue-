@@ -24,6 +24,15 @@ export const Card: React.FC = () => {
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [duration, setDuration] = useState<number>(210);
   const [isShuffle, setIsShuffle] = useState<boolean>(false);
+  const [isMobileExpanded, setIsMobileExpanded] = useState<boolean>(false);
+  
+  const handleCardClick = (e: React.MouseEvent) => {
+    const target = e.target as HTMLElement;
+    if (target.closest('button') || target.closest('input')) {
+      return;
+    }
+    setIsMobileExpanded(!isMobileExpanded);
+  };
   
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -139,9 +148,13 @@ export const Card: React.FC = () => {
   const progressPercent = duration > 0 ? (currentTime / duration) * 100 : 0;
 
   return (
-    <div id="wilo-interactive-music-card" className="flex flex-col items-center group/he select-none pointer-events-auto">
+    <div 
+      id="wilo-interactive-music-card" 
+      onClick={handleCardClick}
+      className="flex flex-col items-center group/he select-none pointer-events-auto"
+    >
       {/* Vinyl Disc Section representing spatial rotating record - collapses on active menu hovering */}
-      <div className="relative z-0 h-10 -mb-1.5 transition-all duration-300 group-hover/he:h-0">
+      <div className={`relative z-0 ${isMobileExpanded ? 'h-0' : 'h-10'} -mb-1.5 transition-all duration-300 group-hover/he:h-0`}>
         <svg 
           width={80} 
           height={80} 
@@ -169,10 +182,10 @@ export const Card: React.FC = () => {
       </div>
 
       {/* Main Expander Body Card */}
-      <div className="z-30 flex flex-col w-40 h-14 transition-all duration-300 bg-white shadow-md group-hover/he:h-30 group-hover/he:w-68 rounded-xl shadow-zinc-400/80 overflow-hidden">
+      <div className={`z-30 flex flex-col ${isMobileExpanded ? 'h-30 w-68' : 'w-40 h-14'} transition-all duration-300 bg-white shadow-md group-hover/he:h-30 group-hover/he:w-68 rounded-xl shadow-zinc-400/80 overflow-hidden`}>
         {/* Track details headers - shown when cursor hovers & card displays spatial components */}
-        <div className="flex flex-row w-full h-0 group-hover/he:h-16 transition-all duration-300 overflow-hidden">
-          <div className="relative flex items-center justify-center w-16 h-16 group-hover/he:-top-3 group-hover/he:-left-2 opacity-0 group-hover/he:animate-[spin_4s_linear_infinite] group-hover/he:opacity-100 transition-all duration-300 select-none">
+        <div className={`flex flex-row w-full ${isMobileExpanded ? 'h-16' : 'h-0'} group-hover/he:h-16 transition-all duration-300 overflow-hidden`}>
+          <div className={`relative flex items-center justify-center w-16 h-16 ${isMobileExpanded ? '-top-3 -left-2 opacity-100 animate-[spin_4s_linear_infinite]' : 'opacity-0'} group-hover/he:-top-3 group-hover/he:-left-2 group-hover/he:animate-[spin_4s_linear_infinite] group-hover/he:opacity-100 transition-all duration-300 select-none`}>
             <svg width={64} height={64} viewBox="0 0 128 128" className="duration-500 border-2 rounded-full shadow-sm border-zinc-400">
               <rect width={128} height={128} fill="black" />
               <circle cx={20} cy={20} r={2} fill="white" />
@@ -191,15 +204,15 @@ export const Card: React.FC = () => {
             </svg>
             <div className="absolute inset-0 m-auto z-10 w-3.5 h-3.5 bg-white border border-zinc-400 rounded-full shadow-sm" />
           </div>
-          <div className="flex flex-col justify-center w-full pl-2 -ml-16 overflow-hidden group-hover/he:-ml-1.5 text-nowrap transition-all duration-300">
+          <div className={`flex flex-col justify-center w-full pl-2 ${isMobileExpanded ? '-ml-1.5' : '-ml-16'} overflow-hidden group-hover/he:-ml-1.5 text-nowrap transition-all duration-300`}>
             <p className="text-[11px] font-bold text-slate-900 truncate pr-2">{activeTrack.title}</p>
             <p className="text-[9.5px] text-zinc-500 font-medium">{activeTrack.artist}</p>
           </div>
         </div>
 
         {/* Dynamic Progression Slider Row - compact format floats cleanly, hovers display counters */}
-        <div className="flex flex-row items-center mx-2.5 mt-2.5 bg-indigo-50/50 rounded-md min-h-4 group-hover/he:mt-0 transition-all duration-300">
-          <span className="hidden pl-1.5 text-[8.5px] font-mono text-zinc-500 group-hover/he:inline-block w-7 text-right shrink-0">
+        <div className={`flex flex-row items-center mx-2.5 ${isMobileExpanded ? 'mt-0' : 'mt-2.5'} bg-indigo-50/50 rounded-md min-h-4 group-hover/he:mt-0 transition-all duration-300`}>
+          <span className={`${isMobileExpanded ? 'inline-block' : 'hidden'} pl-1.5 text-[8.5px] font-mono text-zinc-500 group-hover/he:inline-block w-7 text-right shrink-0`}>
             {formatTimeStr(currentTime)}
           </span>
           <input 
@@ -208,9 +221,9 @@ export const Card: React.FC = () => {
             max={100} 
             value={progressPercent} 
             onChange={handleSeek}
-            className="w-20 group-hover/he:w-full flex-grow h-0.5 mx-1.5 my-auto bg-slate-200 rounded-full appearance-none [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-2.5 [&::-webkit-slider-thumb]:h-2.5 [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border [&::-webkit-slider-thumb]:border-zinc-400 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:cursor-pointer cursor-pointer" 
+            className={`w-20 ${isMobileExpanded ? 'w-full' : 'w-20'} flex-grow h-0.5 mx-1.5 my-auto bg-slate-200 rounded-full appearance-none [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-2.5 [&::-webkit-slider-thumb]:h-2.5 [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border [&::-webkit-slider-thumb]:border-zinc-400 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:cursor-pointer cursor-pointer`} 
           />
-          <span className="hidden pr-1.5 text-[8.5px] font-mono text-zinc-500 group-hover/he:inline-block w-7 text-left shrink-0">
+          <span className={`${isMobileExpanded ? 'inline-block' : 'hidden'} pr-1.5 text-[8.5px] font-mono text-zinc-500 group-hover/he:inline-block w-7 text-left shrink-0`}>
             {formatTimeStr(duration)}
           </span>
         </div>
@@ -221,7 +234,7 @@ export const Card: React.FC = () => {
           <button 
             type="button"
             onClick={() => setIsShuffle(prev => !prev)}
-            className="flex items-center justify-center w-0 h-full overflow-hidden opacity-0 group-hover/he:opacity-100 group-hover/he:w-6 transition-all duration-300 hover:text-cyan-600"
+            className={`flex items-center justify-center ${isMobileExpanded ? 'opacity-100 w-6' : 'w-0 opacity-0'} group-hover/he:opacity-100 group-hover/he:w-6 transition-all duration-300 hover:text-cyan-600`}
             title={isShuffle ? "Shuffle On" : "Repeat On"}
           >
             {isShuffle ? (
@@ -291,7 +304,7 @@ export const Card: React.FC = () => {
           <button 
             type="button"
             onClick={handleNext}
-            className="flex items-center justify-center w-0 h-full overflow-hidden opacity-0 group-hover/he:opacity-100 group-hover/he:w-6 transition-all duration-300 hover:text-cyan-600"
+            className={`flex items-center justify-center ${isMobileExpanded ? 'opacity-100 w-6' : 'w-0 opacity-0'} group-hover/he:opacity-100 group-hover/he:w-6 transition-all duration-300 hover:text-cyan-600`}
             title="Switch Tracks Lineup"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width={11} height={11} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">

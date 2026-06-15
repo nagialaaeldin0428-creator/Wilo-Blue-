@@ -17,7 +17,8 @@ import {
   Instagram,
   Sparkles,
   Sliders,
-  X
+  X,
+  Music
 } from 'lucide-react';
 import { WeatherMode } from '../types';
 import { soundEngine } from '../utils/audio';
@@ -92,6 +93,7 @@ export const UIOverlay: React.FC<UIOverlayProps> = ({
   ]);
   const [currentSubtitle, setCurrentSubtitle] = useState<string>('');
   const [isIntroPlaying, setIsIntroPlaying] = useState<boolean>(false);
+  const [isMusicPlayerOpen, setIsMusicPlayerOpen] = useState<boolean>(false);
   
   // Weather Auto-Cycle state
   const [isAutoCycle, setIsAutoCycle] = useState<boolean>(true);
@@ -370,6 +372,21 @@ export const UIOverlay: React.FC<UIOverlayProps> = ({
             )}
           </button>
 
+          {/* Soundtrack Card Toggle Trigger */}
+          <button
+            id="btn-music-toggle"
+            onClick={() => setIsMusicPlayerOpen(!isMusicPlayerOpen)}
+            className={`group relative flex items-center justify-center w-11 h-11 rounded-2xl border backdrop-blur-md transition-all duration-500 cursor-pointer ${
+              isMusicPlayerOpen 
+                ? 'bg-cyan-500/10 border-cyan-500/30 text-cyan-400 hover:border-cyan-400/60 hover:shadow-[0_0_20px_rgba(34,211,238,0.25),_inset_0_1px_1px_rgba(255,255,255,0.2)]' 
+                : 'bg-slate-950/40 border-white/5 text-slate-300 hover:text-cyan-400 hover:border-white/15'
+            } active:scale-95 active:translate-y-0.5`}
+            title={isMusicPlayerOpen ? "Hide Soundtrack" : "Show Soundtrack"}
+          >
+            <Music className={`w-4.5 h-4.5 transition-transform duration-300 group-hover:scale-110 ${isMusicPlayerOpen ? 'animate-pulse' : ''}`} />
+            {isMusicPlayerOpen && <span className="absolute -top-1 -right-1 w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>}
+          </button>
+
           {/* Instagram Button (Wilo.blue - Great-ape-33 theme) */}
           <a
             id="btn-instagram-link"
@@ -613,10 +630,10 @@ export const UIOverlay: React.FC<UIOverlayProps> = ({
       {isIntroPlaying && currentSubtitle && (
         <div 
           id="subtitle-overlay-box" 
-          className="absolute bottom-32 md:bottom-36 left-1/2 -translate-x-1/2 w-11/12 max-w-2xl text-center pointer-events-none z-40 animate-fade-in-up"
+          className="absolute top-[22%] md:top-auto md:bottom-36 left-1/2 -translate-x-1/2 w-11/12 max-w-lg md:max-w-2xl text-center pointer-events-none z-40 animate-fade-in-up"
         >
-          <div className="bg-slate-950/65 border border-white/5 rounded-2xl px-8 py-4.5 shadow-[0_12px_45px_rgba(0,0,0,0.85)] backdrop-blur-md inline-block">
-            <p className="text-base md:text-lg font-serif tracking-wide text-cyan-50 font-normal leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,1)] selection:bg-cyan-500/30">
+          <div className="bg-slate-950/80 border border-white/10 rounded-2xl px-4 py-3 md:px-8 md:py-4.5 shadow-[0_12px_45px_rgba(0,0,0,0.85)] backdrop-blur-md inline-block max-w-full">
+            <p className="text-sm md:text-lg font-serif tracking-wide text-cyan-50 font-normal leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,1)] selection:bg-cyan-500/30">
               {currentSubtitle}
             </p>
           </div>
@@ -716,16 +733,19 @@ export const UIOverlay: React.FC<UIOverlayProps> = ({
       </motion.footer>
 
       {/* INDEPENDENT HIGH-FIDELITY WALO COMS INTERACTIVE SOUNDTRACK PLAY-DECK */}
-      <motion.div 
-        initial={{ opacity: 0, y: 180, scale: 0.8, filter: "blur(20px) brightness(0.2)" }}
-        animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px) brightness(1)" }}
-        transition={{ delay: 0.62, type: "spring", stiffness: 28, damping: 11, mass: 1.3 }}
-        className="absolute bottom-28 right-4 md:bottom-32 md:right-12 z-35 pointer-events-auto md:block"
-      >
-        <div className="animate-ocean-bob-extra-slow">
-          <Card />
-        </div>
-      </motion.div>
+      <AnimatePresence>
+        {isMusicPlayerOpen && (
+          <motion.div 
+            initial={{ opacity: 0, y: -20, scale: 0.9, filter: "blur(10px)" }}
+            animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+            exit={{ opacity: 0, y: -20, scale: 0.9, filter: "blur(10px)" }}
+            transition={{ type: "spring", stiffness: 125, damping: 14 }}
+            className="absolute top-24 right-4 md:top-28 md:right-12 z-35 pointer-events-auto mr-1.5 animate-ocean-bob-extra-slow"
+          >
+            <Card />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
     </div>
   );

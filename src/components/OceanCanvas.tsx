@@ -266,6 +266,8 @@ export const OceanCanvas: React.FC<OceanCanvasProps> = ({
 
   const isDraggingRef = useRef<boolean>(false);
   const previousPointerRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const initialTouchDistanceRef = useRef<number | null>(null);
+  const initialZoomDistRef = useRef<number>(0);
 
   // Smooth lerp coordinates
   const cameraTarget = useRef<THREE.Vector3>(new THREE.Vector3(0, 1.8, 0));
@@ -377,6 +379,47 @@ export const OceanCanvas: React.FC<OceanCanvasProps> = ({
     if (distance < 6 && duration < 350) {
       handleCanvasClick(e);
     }
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (e.touches.length === 2) {
+      const t1 = e.touches[0];
+      const t2 = e.touches[1];
+      const dx = t1.clientX - t2.clientX;
+      const dy = t1.clientY - t2.clientY;
+      initialTouchDistanceRef.current = Math.sqrt(dx * dx + dy * dy);
+      initialZoomDistRef.current = zoomDistRef.current;
+    }
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (e.touches.length === 2 && initialTouchDistanceRef.current !== null) {
+      const t1 = e.touches[0];
+      const t2 = e.touches[1];
+      const dx = t1.clientX - t2.clientX;
+      const dy = t1.clientY - t2.clientY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      
+      const ratio = dist / initialTouchDistanceRef.current;
+      let nextZoom = initialZoomDistRef.current / ratio;
+      
+      if (inspectModeRef.current === 'book') {
+        nextZoom = Math.max(1.8, Math.min(8.5, nextZoom));
+        if (nextZoom > 8.0 && onInspectModeChangeRef.current) {
+          onInspectModeChangeRef.current('boat');
+        }
+      } else {
+        nextZoom = Math.max(1.8, Math.min(130, nextZoom));
+        if (nextZoom < 10.0 && onInspectModeChangeRef.current) {
+          onInspectModeChangeRef.current('book');
+        }
+      }
+      zoomDistRef.current = nextZoom;
+    }
+  };
+
+  const handleTouchEnd = () => {
+    initialTouchDistanceRef.current = null;
   };
 
   // Objects refs
@@ -2787,11 +2830,15 @@ export const OceanCanvas: React.FC<OceanCanvasProps> = ({
     <div 
       id="ocean-container" 
       ref={mountRef} 
-      className="absolute inset-0 w-full h-full bg-slate-950 overflow-hidden select-none z-0"
+      className="absolute inset-0 w-full h-full bg-slate-950 overflow-hidden select-none z-0 touch-none"
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
       onPointerCancel={handlePointerUp}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      onTouchCancel={handleTouchEnd}
       onDoubleClick={() => {
         if (inspectModeRef.current === 'book' && onInspectModeChange) {
           onInspectModeChange('boat');
